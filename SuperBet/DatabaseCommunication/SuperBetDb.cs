@@ -11,7 +11,7 @@ namespace SuperBet.DatabaseCommunication
     {
         public DbSet<Addict> Addicts { get; set; }
         public DbSet<Odds> Odds { get; set; }
-        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Ticket> Ticket { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -20,6 +20,10 @@ namespace SuperBet.DatabaseCommunication
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Odds>()
+       .HasKey(o => o.OddID);
+
             modelBuilder.Entity<Ticket>()
                 .HasOne(t => t.Odds)
                 .WithMany(o => o.Tickets)
