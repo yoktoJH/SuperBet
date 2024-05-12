@@ -22,30 +22,94 @@ namespace SuperBet.DatabaseCommunication
             return await _db.Addicts.ToListAsync();
         }
 
-        // Method to get an addict by id
-        public async Task<Addict?> GetAddictByIdAsync(string email)
+        // addict funcitons
+        public async Task<Addict?> GetAddictByIdAsync(int id)
         {
-            return await _db.Addicts.FindAsync(email);
+            return await _db.Addicts.FindAsync(id);
         }
 
-        // Method to add a new addict
+        public async Task<Addict?> GetAddictByEmailAsync(string email)
+        {
+            return await _db.Addicts.FirstOrDefaultAsync(a => a.Email == email);
+        }
+        
+        
         public async Task AddAddictAsync(Addict addict)
         {
             _db.Add(addict);
             await _db.SaveChangesAsync();
         }
 
-        // Method to update an existing addict
+        
         public async Task UpdateAddictAsync(Addict addict)
         {
             _db.Update(addict);
             await _db.SaveChangesAsync();
         }
 
-        // Method to delete an addict
+        
         public async Task DeleteAddictAsync(Addict addict)
         {
             _db.Remove(addict);
+            await _db.SaveChangesAsync();
+        }
+
+        // odds fuctions
+        public async Task<List<Odds>> GetAllOddsAsync()
+        {
+            return await _db.Odds.ToListAsync();
+        }
+
+     
+        public async Task<Odds?> GetOddsByIdAsync(int id)
+        {
+            return await _db.Odds.FindAsync(id);
+        }
+
+        public async Task AddOddsAsync(Odds odds)
+        {
+            _db.Add(odds);
+            await _db.SaveChangesAsync();
+        }
+
+  
+        public async Task UpdateOddsAsync(Odds odds)
+        {
+            _db.Update(odds);
+            await _db.SaveChangesAsync();
+        }
+
+        
+        public async Task DeleteOddsAsync(Odds odds)
+        {
+            _db.Remove(odds);
+            await _db.SaveChangesAsync();
+        }
+
+        // addict funcitons
+        public async Task<Ticket?> GetTicketByIdAsync(int id)
+        {
+            return await _db.Ticket.FindAsync(id);
+        }
+
+
+        public async Task AddTicketAsync(Ticket ticket)
+        {
+            _db.Add(ticket);
+            await _db.SaveChangesAsync();
+        }
+
+
+        public async Task UpdateTicketAsync(Ticket ticket)
+        {
+            _db.Update(ticket);
+            await _db.SaveChangesAsync();
+        }
+
+
+        public async Task DeleteTicketAsync(Ticket ticket)
+        {
+            _db.Remove(ticket);
             await _db.SaveChangesAsync();
         }
     }

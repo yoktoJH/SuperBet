@@ -1,3 +1,6 @@
+using SuperBet.DatabaseCommunication;
+using SuperBet.UiElements;
+
 namespace SuperBet
 {
     internal static class Program
@@ -11,7 +14,10 @@ namespace SuperBet
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            var db = new SuperBetDb();
+            var model = new Model(db);
+            ScreenStorage screenStorage = new ScreenStorage(model);
+            Application.Run(screenStorage.login);
         }
     }
 }

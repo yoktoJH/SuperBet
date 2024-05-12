@@ -14,7 +14,7 @@ namespace SuperBet.DatabaseCommunication
         public int OddID { get; set; }
         public int Id { get; set; }
 
-        public Odds Odds { get; set; }
-        public Addict Addict { get; set; }
+        public Odds? Odds { get; set; }
+        public Addict? Addict { get; set; }
     }
 }

@@ -1,13 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperBet.DatabaseCommunication
 {
-    public class SuperBetDb: DbContext
+    public class SuperBetDb : DbContext
     {
         public DbSet<Addict> Addicts { get; set; }
         public DbSet<Odds> Odds { get; set; }
