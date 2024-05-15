@@ -9,7 +9,7 @@ namespace SuperBet.DatabaseCommunication
     public class Ticket
     {
         public int TicketId { get; set; }
-        public int Value { get; set; }
+        public double Value { get; set; }
 
         public int OddID { get; set; }
         public int Id { get; set; }

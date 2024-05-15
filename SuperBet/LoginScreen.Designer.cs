@@ -139,6 +139,7 @@
             Name = "LoginScreen";
             Text = "LoginScreen";
             Load += LoginScreen_Load;
+            Shown += LoginScreen_Shown;
             ResumeLayout(false);
             PerformLayout();
         }

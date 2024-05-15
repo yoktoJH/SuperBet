@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Media.Streaming.Adaptive;
 
 namespace SuperBet.DatabaseCommunication
 {
@@ -25,6 +26,11 @@ namespace SuperBet.DatabaseCommunication
         public async Task<Odds?> GetByIdAsync(int id)
         {
             return await _db.Odds.FindAsync(id);
+        }
+
+        public async Task<List<Odds>> GetByCategory(string category,bool active)
+        {
+            return await _db.Odds.Where(a => a.Category == category && (active || a.CloseTime > DateTime.Today)).ToListAsync();
         }
 
         public async Task AddAsync(Odds odds)

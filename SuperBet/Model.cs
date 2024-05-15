@@ -1,6 +1,5 @@
 ﻿using SuperBet.DatabaseCommunication;
 using System.Text.RegularExpressions;
-using Windows.Devices.Power;
 
 namespace SuperBet
 {
@@ -13,7 +12,10 @@ namespace SuperBet
         private readonly int _idRange = 100000;
         private readonly Regex _emailRegex = new Regex(@"^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$");
         private readonly Regex _nameRegex = new Regex(@"^[A-Z]([a-zA-Z])*$");
-        private Addict _loggedInUser = null;
+        private Addict? _loggedInUser = null;
+
+        public List<Odds> OddsToShow { get; private set; } = new List<Odds>();
+
         public Model(SuperBetDb database)
         {
             _addictDAO = new AddictDAO(database);
@@ -70,11 +72,50 @@ namespace SuperBet
         public bool LoginUser(string username, string password)
         {
             var user = _addictDAO.GetAddictByEmailAsync(username);
-            if (user.Result == null || user.Result.Password != password) {
+            if (user.Result == null || user.Result.Password != password)
+            {
                 return false;
             }
             _loggedInUser = user.Result;
             return true;
+        }
+
+        public void LogoutUser()
+        {
+            _loggedInUser = null;
+        }
+
+        public string[] OddsCategories() => _oddsDAO.GetAllAsync().Result.Select(a => a.Category).Distinct().Where(a => a != null).ToArray();
+
+        public void ShowOddsInCategories(string category)
+        {
+            OddsToShow.AddRange(_oddsDAO.GetByCategory(category,true).Result);
+        }
+
+
+        public void onetimeinsertdata()
+        {
+            var date = DateTime.Today;
+            date.AddDays(8);
+            List<Odds> pppp = new() {
+                new Odds { OddID = 0, Category = "Madarsko", CloseTime = date, Name = "Sfdfd USA", Description = "Slovensko neprestane hrať v 3. tretine", Rate = 1.001 },
+                new Odds { OddID = 0, Category = "Basketbal", CloseTime = date, Name = "Slovensko vs USA", Description = "Slovensko neprestane hrať v 3. tretine", Rate = 1.001 },
+
+            };
+            foreach (var item in pppp)
+            {
+                var x = _oddsDAO.AddAsync(item);
+            }
+            
+        }
+
+
+        public async void CreateTicket(int oddindex, double value)
+        {
+            if (_loggedInUser == null) {
+                throw new InvalidOperationException("Cannot create tickets without user");
+            }
+            await _ticketDAO.AddAsync(new Ticket { OddID = OddsToShow[oddindex].OddID, Id = _loggedInUser.Id, TicketId = 0, Value = value });
         }
     }
 }

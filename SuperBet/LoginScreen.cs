@@ -48,11 +48,20 @@ namespace SuperBet
         {
             if (_model.LoginUser(textBox2.Text, textBox1.Text))
             {
-                //label4.Visible = false;
-                label4.Text = "PRIhásenie succcccc esfullll";
-                //move to the next part
+                label4.Visible = false;
+                //label4.Text = "PRIhásenie succcccc esfullll";
+                this.Hide();
+                textBox1.Clear();
+                textBox2.Clear();
+                _screens.user.Show();
             }
             label4.Visible = true;
+        }
+
+        private void LoginScreen_Shown(object sender, EventArgs e)
+        {
+            textBox1.Clear();
+            textBox2.Clear();
         }
     }
 }
