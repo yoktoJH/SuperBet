@@ -30,7 +30,7 @@ namespace SuperBet.DatabaseCommunication
 
         public async Task<List<Odds>> GetByCategory(string category,bool active)
         {
-            return await _db.Odds.Where(a => a.Category == category && (active || a.CloseTime > DateTime.Today)).ToListAsync();
+            return await _db.Odds.Where(a => a.Category == category && (!active || a.CloseTime > DateTime.Today)).ToListAsync();
         }
 
         public async Task AddAsync(Odds odds)

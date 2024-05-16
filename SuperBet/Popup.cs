@@ -21,7 +21,7 @@ namespace SuperBet
             _model = model;
             this.oddID = oddID;
             _value = value;
-            label1.Text = "Chceš naozaj vsadiť" + value.ToString()+"€ ?";
+            label1.Text = "Chceš naozaj vsadiť " + value.ToString()+"€ ?";
             
         }
 

@@ -38,6 +38,7 @@
             label4 = new Label();
             button2 = new Button();
             listBox1 = new ListBox();
+            button3 = new Button();
             SuspendLayout();
             // 
             // checkedListBox1
@@ -49,7 +50,6 @@
             checkedListBox1.Size = new Size(274, 764);
             checkedListBox1.TabIndex = 2;
             checkedListBox1.ItemCheck += checkedListBox1_ItemCheck;
-
             // 
             // button1
             // 
@@ -144,11 +144,23 @@
             listBox1.TabIndex = 12;
             listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
+            // button3
+            // 
+            button3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button3.Location = new Point(1441, 64);
+            button3.Name = "button3";
+            button3.Size = new Size(129, 46);
+            button3.TabIndex = 13;
+            button3.Text = "Profil";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
             // UserScreen
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1582, 853);
+            Controls.Add(button3);
             Controls.Add(listBox1);
             Controls.Add(button2);
             Controls.Add(label4);
@@ -176,5 +188,6 @@
         private Label label4;
         private Button button2;
         private ListBox listBox1;
+        private Button button3;
     }
 }

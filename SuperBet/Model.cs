@@ -12,6 +12,7 @@ namespace SuperBet
         private readonly int _idRange = 100000;
         private readonly Regex _emailRegex = new Regex(@"^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$");
         private readonly Regex _nameRegex = new Regex(@"^[A-Z]([a-zA-Z])*$");
+        private readonly Random random = new Random();
         private Addict? _loggedInUser = null;
 
         public List<Odds> OddsToShow { get; private set; } = new List<Odds>();
@@ -34,11 +35,11 @@ namespace SuperBet
         public async Task<bool> RegisterAddict(string name, string email, string password)
         {
             var existingAddict = _addictDAO.GetAddictByEmailAsync(email);
-            var rand = new Random();
-            int id = rand.Next(_idRange);
+            
+            int id = random.Next(_idRange);
             while (_usedIds.Contains(id))
             {
-                id = rand.Next(_idRange);
+                id = random.Next(_idRange);
             }
             _usedIds.Add(id);
             Addict newAddict = new()
@@ -115,7 +116,22 @@ namespace SuperBet
             if (_loggedInUser == null) {
                 throw new InvalidOperationException("Cannot create tickets without user");
             }
-            await _ticketDAO.AddAsync(new Ticket { OddID = OddsToShow[oddindex].OddID, Id = _loggedInUser.Id, TicketId = 0, Value = value });
+            int id = random.Next(_idRange);
+            while (_ticketDAO.GetByIdAsync(id).Result != null)
+            {
+                id = random.Next(_idRange);
+            }
+            await _ticketDAO.AddAsync(new Ticket { OddID = OddsToShow[oddindex].OddID, Id = _loggedInUser.Id, TicketId = id, Value = value });
+        }
+
+        public List<Ticket> GetUsersTickets()
+        {
+            if (_loggedInUser == null)
+            {
+                throw new InvalidOperationException("user not logged in ");
+            }
+            var x = _ticketDAO.GetAllAsync().Result;
+            return _ticketDAO.GetByAllAddictAsync(_loggedInUser.Id).Result;
         }
     }
 }

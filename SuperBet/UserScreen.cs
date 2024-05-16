@@ -35,13 +35,17 @@ namespace SuperBet
         private void button1_Click(object sender, EventArgs e)
         {
             //_model.onetimeinsertdata();
-            if (Double.TryParse(betAmount.Text.Substring(0,betAmount.Text.Length-1),out double value))
+            if (listBox1.SelectedIndex < 0 || listBox1.SelectedIndex >= _model.OddsToShow.Count)
             {
-                Popup popup = new Popup(value, _model,listBox1.SelectedIndex);
+                return;
+            }
+            if (Double.TryParse(betAmount.Text.Substring(0, betAmount.Text.Length - 1), out double value))
+            {
+                Popup popup = new Popup(value, _model, listBox1.SelectedIndex);
                 popup.ShowDialog();
 
             }
-            
+
         }
 
         protected override void OnShown(EventArgs e)
@@ -74,7 +78,7 @@ namespace SuperBet
         }
 
 
-        
+
 
 
 
@@ -125,7 +129,14 @@ namespace SuperBet
             betName.Text = odd.Name;
             label1.Text = odd.Description;
             label3.Text = odd.Rate.ToString();
-        
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            _screens.profile.UpdateVisuals();
+            _screens.profile.Show();
         }
     }
 }

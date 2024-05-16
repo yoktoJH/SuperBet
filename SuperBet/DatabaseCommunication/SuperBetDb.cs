@@ -18,6 +18,7 @@ namespace SuperBet.DatabaseCommunication
 
             modelBuilder.Entity<Odds>()
        .HasKey(o => o.OddID);
+            modelBuilder.Entity<Ticket>().HasKey(t => t.TicketId);
 
             modelBuilder.Entity<Ticket>()
                 .HasOne(t => t.Odds)

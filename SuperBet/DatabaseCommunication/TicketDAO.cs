@@ -23,10 +23,9 @@ namespace SuperBet.DatabaseCommunication
         }
 
 
-        public async Task<List<Ticket>> GetByAddictAsync(int id)
+        public async Task<List<Ticket>> GetByAllAddictAsync(int id)
         {
-            var res = await GetAllAsync();
-            return res.Where(a => a.Id == id).ToList();
+            return await _db.Ticket.Where(a => a.Id == id).ToListAsync();
         }
 
         public async Task<Ticket?> GetByIdAsync(int id)
@@ -54,5 +53,7 @@ namespace SuperBet.DatabaseCommunication
             _db.Remove(ticket);
             await _db.SaveChangesAsync();
         }
+
+
     }
 }
