@@ -13,13 +13,13 @@ using System.Windows.Forms;
 
 namespace SuperBet
 {
-    public partial class ProfileScreen : Form
+    public partial class StatScreen : Form
     {
         private ScreenStorage _screens;
         private Model _model;
         private Addict? _user = null;
         private List<Ticket> tickets = new List<Ticket>();
-        public ProfileScreen(ScreenStorage screens, Model model)
+        public StatScreen(ScreenStorage screens, Model model)
         {
             InitializeComponent();
             _screens = screens;
@@ -28,9 +28,9 @@ namespace SuperBet
 
         public void UpdateVisuals()
         {
-            tickets = _model.GetUsersTickets();
+            tickets = _model.GetTickets();
 
-            
+
             List<PieSlice> pieSlices = new()
             {
                 new PieSlice(){Value = tickets.Where(t =>t.Odds.CloseTime < DateTime.Today && !t.Odds.Winning).Count() ,FillColor = Colors.Red , Label = "Prehry"},
@@ -52,7 +52,7 @@ namespace SuperBet
                     continue;
                 }
                 string status = "nerozhodnuté";
-                if(item.Odds.CloseTime < DateTime.Today)
+                if (item.Odds.CloseTime < DateTime.Today)
                 {
                     if (item.Odds.Winning)
                     {
@@ -64,7 +64,7 @@ namespace SuperBet
                     }
                 }
 
-                var row = string.Format("{0,-20}{1,-20}{2,-20}{3}", item.Odds.Name, item.Value, item.Odds.Rate.ToString()+"x",status);
+                var row = string.Format("{0,-20}{1,-20}{2,-20}{3}", item.Odds.Name, item.Value, item.Odds.Rate.ToString() + "x", status);
 
                 listBox1.Items.Add(row);
             }
@@ -88,19 +88,15 @@ namespace SuperBet
         private void button2_Click(object sender, EventArgs e)
         {
             this.Hide();
-            _screens.user.Show();
+            _screens.admin.Show();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex == -1)
-            {
-                return;
-            }
             label5.Text = tickets[listBox1.SelectedIndex].Odds.Name;
             label4.Text = tickets[listBox1.SelectedIndex].Odds.Description;
         }
 
-        
+
     }
 }

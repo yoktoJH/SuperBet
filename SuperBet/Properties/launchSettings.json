@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SuperBet": {
+      "commandName": "Project",
+      "commandLineArgs": "\"Data Source=D:\\\\JOZIK\\\\MUNI\\\\pv178\\\\SuperBet\\\\SuperBet\\\\Data\\\\database\""
+    }
+  }
+}

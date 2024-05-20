@@ -28,7 +28,7 @@ namespace SuperBet
             if (!string.IsNullOrEmpty(betAmount.Text) && !betAmount.Text.EndsWith("€"))
             {
                 betAmount.Text += "€";
-                betAmount.SelectionStart = betAmount.Text.Length - 1; // to keep the cursor before the '$'
+                betAmount.SelectionStart = betAmount.Text.Length - 1; // to keep the cursor before the '€'
             }
         }
 

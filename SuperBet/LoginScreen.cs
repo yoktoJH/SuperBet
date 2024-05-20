@@ -46,16 +46,27 @@ namespace SuperBet
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (_model.LoginUser(textBox2.Text, textBox1.Text))
+            if (!_model.LoginUser(textBox2.Text, textBox1.Text))
             {
-                label4.Visible = false;
-                //label4.Text = "PRIhásenie succcccc esfullll";
-                this.Hide();
-                textBox1.Clear();
-                textBox2.Clear();
+                label4.Visible = true;
+                return;
+            }
+
+            label4.Visible = false;
+            //label4.Text = "PRIhásenie succcccc esfullll";
+            this.Hide();
+            textBox1.Clear();
+            textBox2.Clear();
+            if (_model.IsAdmin)
+            {
+                _screens.admin.Show();
+            }
+            else
+            {
                 _screens.user.Show();
             }
-            label4.Visible = true;
+            
+            
         }
 
         private void LoginScreen_Shown(object sender, EventArgs e)

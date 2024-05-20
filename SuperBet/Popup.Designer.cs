@@ -72,6 +72,7 @@
             Controls.Add(yesBtn);
             Controls.Add(label1);
             Name = "Popup";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Popup";
             ResumeLayout(false);
             PerformLayout();

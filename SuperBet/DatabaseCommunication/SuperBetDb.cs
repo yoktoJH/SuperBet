@@ -7,10 +7,18 @@ namespace SuperBet.DatabaseCommunication
         public DbSet<Addict> Addicts { get; set; }
         public DbSet<Odds> Odds { get; set; }
         public DbSet<Ticket> Ticket { get; set; }
+        
+        public readonly string _path;
+
+        public SuperBetDb(string path):base()
+        {
+            _path = path;
+
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=D:\\JOZIK\\MUNI\\pv178\\SuperBet\\SuperBet\\Data\\database");
+            optionsBuilder.UseSqlite(_path);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

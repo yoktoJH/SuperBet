@@ -13,6 +13,7 @@ namespace SuperBet.UiElements
         public UserScreen user;
         public AdminScreen admin;
         public ProfileScreen profile;
+        public StatScreen stat;
 
         public ScreenStorage(Model model)
         {
@@ -21,6 +22,7 @@ namespace SuperBet.UiElements
             user = new UserScreen(this, model);
             admin = new AdminScreen(this,model);
             profile = new ProfileScreen(this, model);
+            stat = new StatScreen(this,model);
         }
     }
 }
